@@ -1,0 +1,35 @@
+* {
+	font-family: "Courier New", Courier, monospace;
+}
+
+body {
+	background: #140910;
+	color: #eee;
+}
+
+#container {
+	padding: 20px;
+}
+
+#segment {
+
+}
+
+div + div {
+	margin-top: 20px;
+}
+
+svg {
+	width: 142.5px;
+	height: 200px;
+}
+
+svg > g > *,
+svg circle {
+	fill: #361D2D;
+}
+
+svg > g > .on,
+svg circle.on {
+	fill: #067DFD;
+}

@@ -2,141 +2,45 @@
 <html>
 	<head>
 		<meta charset='utf-8' />
-		<style>
-
-* {
-	font-family: "Courier New", Courier, monospace;
-}
-
-div + div {
-	margin-top: 20px;
-}
-
-.segment {
-	width: 142.5px;
-	height: 200px;
-}
-
-svg.segment > g > .on,
-svg.segment circle.on {
-	fill: green;
-}
-
-		</style>
-		<script>
-function find(selector) {
-	return document.querySelector(selector);
-}
-
-function on(segment) {
-	find('.'+segment).classList.add('on');
-}
-
-function off(segment) {
-	find('.'+segment).classList.remove('on');
-}
-
-function is_on(segment) {
-	return find('.'+segment).classList.contains('on');
-}
-
-function on_enter(segment, lambda) {
-	find('.'+segment).addEventListener('click', lambda, false);
-}
-
-function toogle(segment) {
-	if (is_on(segment)) {
-		off(segment);
-	} else {
-		on(segment);
-	}
-}
-
-window.onload = function() {
-	var segments = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-	var current = 0x6d;
-
-	function padding(string, size) {
-		while (string.length < size) {
-			string = "0" + string;
-		}
-		return string;
-	}
-
-	function display(value) {
-		find('#binary').textContent = padding(value.toString(2), 8);
-		find('#hexadecimal').textContent = padding(value.toString(16), 2);
-		find('#decimal').textContent = padding(value.toString(10), 3);
-	}
-
-	function update(segment) {
-		var index = segments.indexOf(segment);
-		var mask = 1 << index;
-
-		if (is_on(segment)) {
-			current |= mask;
-		} else {
-			current &= ~mask;
-		}
-
-		display(current);
-	}
-
-	segments.forEach(function(segment, index) {
-		var mask = 1 << index;
-
-		if ((current & mask) == mask) {
-			on(segment);
-		} else {
-			off(segment);
-		}
-
-		on_enter(segment, function() {
-			toogle(segment);
-			update(segment);
-		});
-	});
-
-	display(current);
-}
-		</script>
+    	<link href="styles.css" rel="stylesheet" type="text/css" />
+		<script src="scripts.js"></script>
 	</head>
 	<body>
-		<div>
-			<svg class='segment' viewBox='0 0 57 80'>
-				<defs>
-					<polyline id='h' points='11 0, 37 0, 42 5, 37 10, 11 10, 6 5'></polyline>
-					<polyline id='v' points='0 11, 5 6, 10 11, 10 34, 5 39, 0 39'></polyline>
-				</defs>
-
-				<g>
-					<use class='a' xlink:href='#h' x='0' y='0'></use>
-					<use class='b' xlink:href='#v' x='-48' y='0' transform='scale(-1,1)'></use>
-					<use class='c' xlink:href='#v' x='-48' y='-80' transform='scale(-1,-1)'></use>
-					<use class='d' xlink:href='#h' x='0' y='70' class='sevenSeg-segOn'></use>
-					<use class='e' xlink:href='#v' x='0' y='-80' transform='scale(1,-1)'></use>
-					<use class='f' xlink:href='#v' x='0' y='0'></use>
-					<use class='g' xlink:href='#h' x='0' y='35'></use>
-				</g>
-
-				<circle class='h' cx='52' cy='75' r='5'></circle>
-			</svg>
-		</div>
-		<div>
-			<table>
-				<tr>
-					<td>Binary</td>
-					<td id='binary'></td>
-				</tr>
-				<tr>
-					<td>Hexadecimal</td>
-					<td id='hexadecimal'></td>
-				</tr>
-				<tr>
-					<td>Decimal</td>
-					<td id='decimal'></td>
-				</tr>
-			</table>
+		<div id="container">
+			<div id="segment">
+				<svg viewBox='0 0 57 80'>
+					<defs>
+						<polyline id='h' points='11 0, 37 0, 42 5, 37 10, 11 10, 6 5'></polyline>
+						<polyline id='v' points='0 11, 5 6, 10 11, 10 34, 5 39, 0 39'></polyline>
+					</defs>
+					<g>
+						<use class='a' xlink:href='#h' x='0' y='0'></use>
+						<use class='b' xlink:href='#v' x='-48' y='0' transform='scale(-1,1)'></use>
+						<use class='c' xlink:href='#v' x='-48' y='-80' transform='scale(-1,-1)'></use>
+						<use class='d' xlink:href='#h' x='0' y='70' class='sevenSeg-segOn'></use>
+						<use class='e' xlink:href='#v' x='0' y='-80' transform='scale(1,-1)'></use>
+						<use class='f' xlink:href='#v' x='0' y='0'></use>
+						<use class='g' xlink:href='#h' x='0' y='35'></use>
+					</g>
+					<circle class='h' cx='52' cy='75' r='5'></circle>
+				</svg>
+			</div>
+			<div id="details">
+				<table>
+					<tr>
+						<td>Binary</td>
+						<td id='binary'></td>
+					</tr>
+					<tr>
+						<td>Hexadecimal</td>
+						<td id='hexadecimal'></td>
+					</tr>
+					<tr>
+						<td>Decimal</td>
+						<td id='decimal'></td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</body>
 </html>
